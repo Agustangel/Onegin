@@ -9,7 +9,8 @@ To **install** this program:
 - **use** `./onegin` to start rhe program
 
 # Features
-In this version of the lexicographic sorting of strings uses a comparator as sorting algorithm, also you can run unit testing
+In this version of the lexicographic sorting of strings uses a comparator as sorting algorithm, also you can run unit testing.
+
 To **run** unit tests:
 - **cd** into directory `onegin`
 - **use** `make tests`

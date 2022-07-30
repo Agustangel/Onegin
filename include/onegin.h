@@ -4,9 +4,14 @@
  * Lexicographic sort. */
 
 //! const for describing input parameters
-static const char* USAGE = "Usage: ./onegin filename option\n \
-        filename - name of file with text\n \
-        option - reverse sort option;\n \
+static const char* USAGE = "Usage: ./onegin filename option_sort_type option_sort_direction\n \
+        filename - name of file with text.\n \
+                                          \n \
+        option_sort_type - option to sort from the beginning or from the end of the string.\n \
+        type '-b' to sort from the beginning of the string.\n \
+        type '-e' to sort from the end of the string.\n \
+                                          \n \
+        option_sort_direction - descending sort option.\n \
         type '-r' to enable it.\n";
 
 //! \enum error_names
@@ -19,12 +24,20 @@ enum error_names
     ERR_BAD_PTR   = -2
 };
 
-//! \enum options
-/*! An enum of possible sorts. */
-enum options
+//! \enum option_sort_type
+/*! An enum of possible sorts type. */
+enum option_sort_type
 {
-    DIRECTLY = 0,
-    BACK     = 1
+    BEGIN = 0,
+    END = 1
+};
+
+//! \enum option_sort_direction
+/*! An enum of possible sorts direction. */
+enum option_sort_direction
+{
+    DIRECTLY = 2,
+    BACK     = 3
 };
 
 //! \struct args_t
@@ -33,7 +46,8 @@ struct args_t
 {
 
     char* filename; /*!< The name of the text file to sort. */
-    char* option; /*!< option '-r' for reverse sort. */
+    char* option_sort_type; /*!< options '-b' and '-e' for sorting. */
+    char* option_sort_direction; /*!< option '-r' for reverse sort. */
 
 };
 
@@ -43,6 +57,7 @@ struct string_t
 {
 
     char* begin_string; /*!< Pointer to the beginning of the string. */
+    char* end_string; /*!< Pointer to the end of the string. */
     int len_string; /*!< Length of the string. */
 
 };
@@ -57,7 +72,7 @@ struct string_t
     {                                      \
         printf(msg);                       \
         exit(errcode);                     \
-    }
+    };
 
 //! Function that parses the input arguments.
 /*! \param &args - pointer to the struct args_t.
@@ -65,7 +80,7 @@ struct string_t
     \param argv[] - array of the strings - input data.
     \param &flag - pointer to a variable describing possible sorting.
  *  \returns result - ERR_INC_INPUT or 0. */
-int parse_args(struct args_t* args, int argc, char** argv, int* flag);
+int parse_args(struct args_t* args, int argc, char** argv, int* flag_sort_type, int* flag_sort_direction);
 
 //! Function that opens file.
 /*! \param filename - string contains the filename.
@@ -97,9 +112,18 @@ long count_strings(char* buffer, long count);
  *  \returns result - pointer to the array of strings. */
 struct string_t* get_strings(char* buffer, long count, long number_strings);
 
-//! Function that skips unnecessary symbols.
-/*! \param current_position - pointer to the current position in string. */
-void should_skip(char* current_position);
+//! Function that skips unnecessary symbols, moves forward lines.
+/*! \param &current_position - pointer to current position in string. */
+void should_skip_forward(char** ptr_current_position);
+
+//! Function that skips unnecessary symbols, moves back lines.
+/*! \param &current_position - pointer to current position in string. */
+void should_skip_back(char** ptr_current_position);
 
 int string_comparator(const void* lhs, const void* rhs);
+int string_comparator_reverse(const void* lhs, const void* rhs);
+
 void print_strings(struct string_t* strings, long number_strings);
+void make_output_file(struct string_t* strings, long number_strings);
+
+void sort(struct string_t* strings, long number_strings, int flag_sort_type, int flag_sort_direction);

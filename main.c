@@ -10,11 +10,12 @@
 
 int main(int argc, char* argv[])
 {
-    int flag = DIRECTLY;
+    int flag_sort_type = BEGIN;
+    int flag_sort_direction = DIRECTLY;
 
     struct args_t args;
 
-    int ret = parse_args(&args, argc, argv, &flag);
+    int ret = parse_args(&args, argc, argv, &flag_sort_type, &flag_sort_direction);
     HANDLE_ERROR(ret, ERR_INC_INPUT, "ERROR: incorrect input.\n");
 
     FILE* text = open_file(args.filename);
@@ -36,17 +37,11 @@ int main(int argc, char* argv[])
 
     struct string_t* strings = get_strings(buffer, count, number_strings);
 
+    sort(strings, number_strings, flag_sort_type, flag_sort_direction);
+
+    make_output_file(strings, number_strings);
+
     free(buffer);
-
-    //print_strings(strings, number_strings);
-    //fflush(stdout);
-
-    if(flag == BACK);
-        // sort_back();
-    if(flag == DIRECTLY);
-        // sort_directly();
-
-    qsort(strings, number_strings, sizeof(struct string_t), string_comparator);
 
     return 0;
 }

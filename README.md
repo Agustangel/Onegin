@@ -13,4 +13,9 @@ In this version of sorting program uses comparator.
 It is possible to choose the sorting algorithm offered by this program:
 - lexicographic sorting
 - insertion sorting
-You can also select the sort option: ascending, descending, from the beginning or from the end of the string.
+ 
+You can also select the sort options:
+- ascending
+- descending
+- from the beginning
+- from the end of the string.

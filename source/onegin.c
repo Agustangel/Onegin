@@ -464,7 +464,7 @@ int parse_args(struct args_t* args, int argc, char** argv, int* flag_sort_type, 
         printf("flag_sort_direction: %d\n", *flag_sort_direction);
     #endif
 
-    if ((argc < 4) || (argc > 5))
+    if (argc != 5)
     {
         printf("%s\n", USAGE);
         return ERR_INC_INPUT;

@@ -76,8 +76,8 @@ struct string_t
 
 };
 
-//! Marker HANDLE_ERROR
-/*! marker to describe the error. */
+//! Macros HANDLE_ERROR
+/*! macros to describe the error. */
 /*! \param retval - return value to be tested.
 /*! \param errcode - const describing a possible error. 
 /*! \param msg - error message. */

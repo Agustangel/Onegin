@@ -3,8 +3,8 @@
 #include <stdio.h>
 
 
-//! Marker SORTING
-/*! marker to sort with different comparators. */
+//! Macros SORTING
+/*! macros to sort with different comparators. */
 /*! \param comparator - sort comparator version. */
 #define SORTING(comparator)                                                                    \
 {                                                                                              \

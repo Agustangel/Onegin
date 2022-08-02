@@ -6,16 +6,18 @@
 #include <ctype.h>
 
 #include "onegin.h"
+#include "insertion_sort.h"
 
 
 int main(int argc, char* argv[])
 {
     int flag_sort_type = BEGIN;
     int flag_sort_direction = DIRECTLY;
+    int flag_algorithm = QSORT;
 
     struct args_t args;
 
-    int ret = parse_args(&args, argc, argv, &flag_sort_type, &flag_sort_direction);
+    int ret = parse_args(&args, argc, argv, &flag_sort_type, &flag_sort_direction, &flag_algorithm);
     HANDLE_ERROR(ret, ERR_INC_INPUT, "ERROR: incorrect input.\n");
 
     FILE* text = open_file(args.filename);
@@ -37,7 +39,7 @@ int main(int argc, char* argv[])
 
     struct string_t* strings = get_strings(buffer, count, number_strings);
 
-    sort(strings, number_strings, flag_sort_type, flag_sort_direction);
+    sort(strings, number_strings, flag_sort_type, flag_sort_direction, flag_algorithm);
 
     make_output_file(strings, number_strings);
 

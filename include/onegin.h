@@ -1,19 +1,32 @@
 #pragma once
 
+#include <stdio.h>
+
 /*! \file onegin.h
  * Lexicographic sort. */
 
 //! const for describing input parameters
-static const char* USAGE = "Usage: ./onegin filename option_sort_type option_sort_direction\n \
+static const char* USAGE = "Usage: ./onegin filename option_sort_type option_sort_direction algoritm\n \
         filename - name of file with text.\n \
                                           \n \
         option_sort_type - option to sort from the beginning or from the end of the string.\n \
         type '-b' to sort from the beginning of the string.\n \
         type '-e' to sort from the end of the string.\n \
                                           \n \
-        option_sort_direction - descending sort option.\n \
-        type '-r' to enable it.\n";
+        option_sort_direction - sorting in descending and ascending order.\n \
+        type '-r' to enable reverse sort. \n \
+        type '-d' to enable directly sort.\n \
+                                          \n \
+        algorithm - proposed sorting algorithm. \n \
+        type '--sort=qsort' or '--sort=insertion' to enable it.\n";
 
+//! \enum algorithm
+/*! An enum of possible algorithms. */
+enum algorithm
+{
+    QSORT     = -7,
+    INSERTION = -6
+};
 //! \enum error_names
 /*! An enum of possible errors. */
 enum error_names
@@ -36,8 +49,8 @@ enum option_sort_type
 /*! An enum of possible sorts direction. */
 enum option_sort_direction
 {
-    DIRECTLY = 2,
-    BACK     = 3
+    DIRECTLY = 1,
+    REVERSE  = -1
 };
 
 //! \struct args_t
@@ -47,7 +60,8 @@ struct args_t
 
     char* filename; /*!< The name of the text file to sort. */
     char* option_sort_type; /*!< options '-b' and '-e' for sorting. */
-    char* option_sort_direction; /*!< option '-r' for reverse sort. */
+    char* option_sort_direction; /*!< options '-d' and '-r' for directly and reverse sort. */
+    char* algorithm; /*!< algorithm of sorting. */
 
 };
 
@@ -80,7 +94,7 @@ struct string_t
     \param argv[] - array of the strings - input data.
     \param &flag - pointer to a variable describing possible sorting.
  *  \returns result - ERR_INC_INPUT or 0. */
-int parse_args(struct args_t* args, int argc, char** argv, int* flag_sort_type, int* flag_sort_direction);
+int parse_args(struct args_t* args, int argc, char** argv, int* flag_sort_type, int* flag_sort_direction, int* flag_algorithm);
 
 //! Function that opens file.
 /*! \param filename - string contains the filename.
@@ -120,10 +134,49 @@ void should_skip_forward(char** ptr_current_position);
 /*! \param &current_position - pointer to current position in string. */
 void should_skip_back(char** ptr_current_position);
 
+//! Function that compares two objects from the beginning.
+/*! \param lhs - pointer to the struct of the first string.
+/*! \param rhs - pointer to the struct of the second string.
+ *  \returns one of the possible results:
+                when sorted in ascending order:
+                -1 - when lhs < rhs. 
+                 1 - when lhs > rhs.
+                 0 - when lhs = rhs. 
+    differently when sorted in descending order. */
 int string_comparator(const void* lhs, const void* rhs);
+
+//! Function that compares two objects from the end.
+/*! \param lhs - pointer to the struct of the first string.
+/*! \param rhs - pointer to the struct of the second string.
+ *  \returns one of the possible results:
+                when sorted in ascending order:
+                -1 - when lhs < rhs. 
+                 1 - when lhs > rhs.
+                 0 - when lhs = rhs. 
+    differently when sorted in descending order. */
 int string_comparator_reverse(const void* lhs, const void* rhs);
 
+//! Function that prints array of the strings.
+/*! \param strings - pointer to the array of the strings.
+/*! \param number_strings - number of strings in the file. */
 void print_strings(struct string_t* strings, long number_strings);
+
+//! Function that creates output file and prints there array of the sorted strings.
+/*! \param strings - pointer to the array of the strings.
+/*! \param number_strings - number of strings in the file. */
 void make_output_file(struct string_t* strings, long number_strings);
 
-void sort(struct string_t* strings, long number_strings, int flag_sort_type, int flag_sort_direction);
+//! Function that sorts strings by qsot algorithm.
+/*! \param strings - pointer to the array of the strings.
+/*! \param number_strings - number of strings in the file.
+/*! \param flag_sort_type - flag to sort from the beginning or end of the strings.
+/*! \param flag_sort_direction - flag to sort in descending or ascending order. */
+void qsort_sort(struct string_t* strings, long number_strings, int flag_sort_type, int flag_sort_direction);
+
+//! Function that sorts strings.
+/*! \param strings - pointer to the array of the strings.
+/*! \param number_strings - number of strings in the file.
+/*! \param flag_sort_type - flag to sort from the beginning or end of the strings.
+/*! \param flag_sort_direction - flag to sort in descending or ascending order.
+/*! \param flag_algorithm - flag to sort by one of the proposed algorithms. */
+void sort(struct string_t* strings, long number_strings, int flag_sort_type, int flag_sort_direction, int flag_algorithm);

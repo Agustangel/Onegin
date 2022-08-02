@@ -1,16 +1,16 @@
-# Lexicographic sorting of strings
-This program performs lexicographical sorting of strings in a text, created for stadyind basics of professional programming.
+# Sorting of strings
+This program performs lexicographical sorting of strings and insertion sorting in a text, created for stadyind basics of professional programming.
 
 # Installing
 To **install** this program:
 - **clone** [this repository](https://github.com/Agustangel/Onegin) **using** `git clone https://github.com/Agustangel/Onegin.git`
 - **cd** into directory `onegin`
 - **use** `make onegin`
-- **use** `./onegin` to start rhe program
+- **use** `./onegin` to start the program
 
 # Features
-In this version of the lexicographic sorting of strings uses a comparator as sorting algorithm, also you can run unit testing
-To **run** unit tests:
-- **cd** into directory `onegin`
-- **use** `make tests`
-- **use** `./tests` to stars unit testing
+In this version of sorting program uses comparator.
+It is possible to choose the sorting algorithm offered by this program:
+- lexicographic sorting
+- insertion sorting
+You can also select the sort option: ascending, descending, from the beginning or from the end of the string.

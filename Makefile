@@ -6,16 +6,19 @@ SORTING=sorting
 #добавить санитайзеры leak address
 
 onegin: main.o onegin.o insertion_sort.o
-	gcc -o onegin main.o onegin.o insertion_sort.o
+	gcc -o onegin main.o onegin.o insertion_sort.o -fsanitize=address -g
 
 main.o: main.c ${INCLUDES}/onegin.h
-	gcc -g -O0 -I ${INCLUDES} -c main.c
+	gcc -g -O0 -I ${INCLUDES} -c main.c -fsanitize=address -g
 
 onegin.o: ${SOURCE}/onegin.c ${INCLUDES}/onegin.h
-	gcc -g -O0 -I ${INCLUDES} -c ${SOURCE}/onegin.c
+	gcc -g -O0 -I ${INCLUDES} -c ${SOURCE}/onegin.c -fsanitize=address -g
 
 insertion_sort.o: ${SORTING}/insertion_sort.c ${INCLUDES}/onegin.h
-	gcc -g -O0 -I ${INCLUDES} -c ${SORTING}/insertion_sort.c
+	gcc -g -O0 -I ${INCLUDES} -c ${SORTING}/insertion_sort.c -fsanitize=address -g
+
+valgrind: onegin
+	valgrind --leak-check=yes ./onegin $(ARGS)
 
 clean:
 	rm onegin main.o onegin.o insertion_sort.o

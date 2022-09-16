@@ -31,6 +31,7 @@ enum algorithm
 /*! An enum of possible errors. */
 enum error_names
 {
+    ERR_NO_ARG    = -6,
     ERR_INC_INPUT = -5,
     ERR_BAD_FILE  = -4,
     ERR_BAD_READ  = -3,
@@ -42,25 +43,26 @@ enum error_names
 enum option_sort_type
 {
     BEGIN = 0,
-    END = 1
+    END   = 1
 };
 
 //! \enum option_sort_direction
 /*! An enum of possible sorts direction. */
 enum option_sort_direction
 {
-    DIRECTLY = 1,
+    DIRECTLY =  1,
     REVERSE  = -1
 };
+
 
 //! \struct args_t
 /*! Сommand line args structure, including the args and their number. */
 struct args_t
 {
-
     char* filename; /*!< The name of the text file to sort. */
-    char* option_sort_type; /*!< options '-b' and '-e' for sorting. */
-    char* option_sort_direction; /*!< options '-d' and '-r' for directly and reverse sort. */
+    int option_sort_type; /*!< options '-b' and '-e' for sorting. */
+    int option_sort_direction; /*!< options '-d' and '-r' for directly and reverse sort. */
+    int option_sort_algorithm; /*!< options for type of algorithm. */
     char* algorithm; /*!< algorithm of sorting. */
 
 };
@@ -92,9 +94,8 @@ struct string_t
 /*! \param &args - pointer to the struct args_t.
     \param argc - count of the argumets.
     \param argv[] - array of the strings - input data.
-    \param &flag - pointer to a variable describing possible sorting.
  *  \returns result - ERR_INC_INPUT or 0. */
-int parse_args(struct args_t* args, int argc, char** argv, int* flag_sort_type, int* flag_sort_direction, int* flag_algorithm);
+int parse_args(struct args_t* args, int argc, char** argv);
 
 //! Function that opens file.
 /*! \param filename - string contains the filename.
@@ -168,15 +169,10 @@ void make_output_file(struct string_t* strings, long number_strings);
 
 //! Function that sorts strings by qsot algorithm.
 /*! \param strings - pointer to the array of the strings.
-/*! \param number_strings - number of strings in the file.
-/*! \param flag_sort_type - flag to sort from the beginning or end of the strings.
-/*! \param flag_sort_direction - flag to sort in descending or ascending order. */
-void qsort_sort(struct string_t* strings, long number_strings, int flag_sort_type, int flag_sort_direction);
+/*! \param number_strings - number of strings in the file. */
+void qsort_sort(struct args_t* args, struct string_t* strings, long number_strings);
 
 //! Function that sorts strings.
 /*! \param strings - pointer to the array of the strings.
-/*! \param number_strings - number of strings in the file.
-/*! \param flag_sort_type - flag to sort from the beginning or end of the strings.
-/*! \param flag_sort_direction - flag to sort in descending or ascending order.
-/*! \param flag_algorithm - flag to sort by one of the proposed algorithms. */
-void sort(struct string_t* strings, long number_strings, int flag_sort_type, int flag_sort_direction, int flag_algorithm);
+/*! \param number_strings - number of strings in the file. */
+void sort(struct args_t* args, struct string_t* strings, long number_strings);

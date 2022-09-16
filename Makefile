@@ -3,6 +3,8 @@ INCLUDES=include
 SOURCE=source
 SORTING=sorting
 
+#добавить санитайзеры leak address
+
 onegin: main.o onegin.o insertion_sort.o
 	gcc -o onegin main.o onegin.o insertion_sort.o
 

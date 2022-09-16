@@ -20,7 +20,5 @@
 
 //! Function for insertion sort
 /*! \param strings - pointer to the array of strings.
-/*! \param number_strings - number of strings in the file.
-/*! \param flag_sort_type - flag value to sort from the beginning or end of lines.
-/*! \param flag_sort_direction - flag value to sort in ascending or descending order. */
-void insertion_sort(struct string_t* strings, long number_strings, int flag_sort_type, int flag_sort_direction);
+/*! \param number_strings - number of strings in the file. */
+void insertion_sort(struct args_t* args, struct string_t* strings, long number_strings);

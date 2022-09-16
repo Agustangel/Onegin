@@ -9,7 +9,7 @@
 #include "insertion_sort.h"
 
 
-void insertion_sort(struct string_t* strings, long number_strings, int flag_sort_type, int flag_sort_direction)
+void insertion_sort(struct args_t* args, struct string_t* strings, long number_strings)
 {
     unsigned long idx = 1L;
 
@@ -19,12 +19,13 @@ void insertion_sort(struct string_t* strings, long number_strings, int flag_sort
 
         unsigned long support_idx = idx;
 
-        if(flag_sort_type == BEGIN)
+        //TODO сделать переменную для указателя на функцию и избавиться от макроса
+        if(args->option_sort_type == BEGIN)
         {
             SORTING(string_comparator);
         }
 
-        if(flag_sort_type == END)
+        if(args->option_sort_type == END)
         {
             SORTING(string_comparator_reverse);
         }       

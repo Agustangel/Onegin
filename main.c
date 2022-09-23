@@ -15,8 +15,7 @@ int main(int argc, char* argv[])
 
     int ret = parse_args(&args, argc, argv);
     HANDLE_ERROR(ret, ERR_INC_INPUT, "ERROR: incorrect input.\n");
-    HANDLE_ERROR(ret, ERR_NO_ARG, "ERROR: missing file or algorithm name.\n");
-
+    
     FILE* text = open_file(args.filename);
     if (text == NULL)
     {
@@ -40,7 +39,6 @@ int main(int argc, char* argv[])
     sort(&args, strings, number_strings);
 
     make_output_file(strings, number_strings);
-
     free(buffer);
 
     return 0;

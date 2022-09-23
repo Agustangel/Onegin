@@ -86,6 +86,9 @@ int string_comparator(const void* lhs, const void* rhs)
             ++current_position_1;
             ++current_position_2;
 
+            current_value_1 = tolower(*current_position_1);
+            current_value_2 = tolower(*current_position_2);
+
             if((current_value_1 == '\0') && (current_value_2 == '\0'))
             {
                 #ifdef DEBUG
@@ -220,6 +223,9 @@ int string_comparator_reverse(const void* lhs, const void* rhs)
             }
         }
         
+        current_value_1 = tolower(*current_position_1);
+        current_value_2 = tolower(*current_position_2);
+
         if((current_value_1 < current_value_2) &&
            (isalpha(current_value_1) != 0) && (isalpha(current_value_2) != 0))
         {
@@ -329,7 +335,6 @@ int fill_buffer(FILE* text, char* buffer, long count)
     assert(buffer != NULL);
 
     long get_count = fread(buffer, sizeof(char), count, text);
-
     #ifdef DEBUG
         printf("get_count = %ld\n", get_count);
     #endif
@@ -454,12 +459,6 @@ int parse_args(struct args_t* args, int argc, char** argv)
         printf("args->option_sort_direction: %s\n", args->option_sort_direction);
         printf("args->algorithm: %s\n", args->algorithm);
     #endif
-
-    if((atoi(args->algorithm) == 0) && (atoi(args->filename) == 0))
-    {
-        printf("%s\n", USAGE);
-        return ERR_NO_ARG;
-    }
 
     if(strcmp(args->algorithm, "--sort=qsort"))
     {

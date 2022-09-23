@@ -1,13 +1,12 @@
 #pragma once
 
-#include <stdio.h>
-
 /*! \file onegin.h
  * Lexicographic sort. */
 
 //! const for describing input parameters
-static const char* USAGE = "Usage: ./onegin filename option_sort_type option_sort_direction algoritm\n \
-        filename - name of file with text.\n \
+static const char* USAGE = "Usage: ./onegin flag_file filename option_sort_type option_sort_direction flag_algoritm algoritm\n \
+        flag_file - option '-f' notifying about filename.\n \
+        filename  - name of file with text.\n \
                                           \n \
         option_sort_type - option to sort from the beginning or from the end of the string.\n \
         type '-b' to sort from the beginning of the string.\n \
@@ -17,6 +16,7 @@ static const char* USAGE = "Usage: ./onegin filename option_sort_type option_sor
         type '-r' to enable reverse sort. \n \
         type '-d' to enable directly sort.\n \
                                           \n \
+        flag_algoritm - option '-a' notifying about type of algorithm.\n \
         algorithm - proposed sorting algorithm. \n \
         type '--sort=qsort' or '--sort=insertion' to enable it.\n";
 
@@ -31,7 +31,6 @@ enum algorithm
 /*! An enum of possible errors. */
 enum error_names
 {
-    ERR_NO_ARG    = -6,
     ERR_INC_INPUT = -5,
     ERR_BAD_FILE  = -4,
     ERR_BAD_READ  = -3,

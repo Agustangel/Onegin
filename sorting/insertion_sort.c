@@ -20,27 +20,14 @@ void insertion_sort(struct args_t* args, struct string_t* strings, long number_s
 
         unsigned long support_idx = idx;
 
-        if(args->option_sort_type == BEGIN)
+        int (*comparator)(const void* lhs, const void* rhs) = 
+                         (args->option_sort_type == BEGIN) ? string_comparator : string_comparator_reverse;
+
+        while((support_idx > 0) && ((*comparator)(&strings[support_idx - 1], &current_string) == 1))
         {
-            while((support_idx > 0) && (string_comparator(&strings[support_idx - 1], &current_string) == 1))
-            {
-                strings[support_idx] = strings[support_idx - 1];    
-
-                --support_idx;
-
-                strings[support_idx] = current_string;
-            }
+            strings[support_idx] = strings[support_idx - 1];    
+            --support_idx;
+            strings[support_idx] = current_string;
         }
-        if(args->option_sort_type == END)
-        {
-            while((support_idx > 0) && (string_comparator_reverse(&strings[support_idx - 1], &current_string) == 1))
-            {
-                strings[support_idx] = strings[support_idx - 1];    
-
-                --support_idx;
-
-                strings[support_idx] = current_string;
-            }
-        }       
     }
 }

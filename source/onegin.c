@@ -71,25 +71,18 @@ int string_comparator(const void* lhs, const void* rhs)
     char* current_position_1 = str_1->begin_string;
     char* current_position_2 = str_2->begin_string;
 
-    char current_value_1 = tolower(*current_position_1);
-    char current_value_2 = tolower(*current_position_2);
-
-
-    while((current_value_1 != '\0') && (current_value_2 != '\0'))
+    while((*current_position_1 != '\0') && (*current_position_2 != '\0'))
     {
 
         should_skip_forward(&current_position_1);
         should_skip_forward(&current_position_2);
 
-        while((current_value_1 == current_value_2) && (isalnum(current_value_1) != 0) && (isalnum(current_value_2) != 0))
+        while((tolower(*current_position_1) == tolower(*current_position_2)) && (isalnum(*current_position_1) != 0) && (isalnum(*current_position_2) != 0))
         {
             ++current_position_1;
             ++current_position_2;
 
-            current_value_1 = tolower(*current_position_1);
-            current_value_2 = tolower(*current_position_2);
-
-            if((current_value_1 == '\0') && (current_value_2 == '\0'))
+            if((*current_position_1 == '\0') && (*current_position_2 == '\0'))
             {
                 #ifdef DEBUG
                     printf("%s\n", str_1->begin_string);
@@ -103,7 +96,7 @@ int string_comparator(const void* lhs, const void* rhs)
             }
         }
 
-        if(current_value_1 == '\0') 
+        if(*current_position_1 == '\0') 
         {
             #ifdef DEBUG
                 printf("%s\n", str_1->begin_string);
@@ -116,7 +109,7 @@ int string_comparator(const void* lhs, const void* rhs)
             return((flag == DIRECTLY) ? -1 : 1);
         }
 
-        if(current_value_2 == '\0') 
+        if(*current_position_2 == '\0')
         {
             #ifdef DEBUG
                 printf("%s\n", str_1->begin_string);
@@ -129,8 +122,8 @@ int string_comparator(const void* lhs, const void* rhs)
             return((flag == DIRECTLY) ? 1 : -1);
         }
 
-        if((current_value_1 < current_value_2) &&
-           (isalnum(current_value_1) != 0) && (isalnum(current_value_2) != 0))
+        if((tolower(*current_position_1) < tolower(*current_position_2)) &&
+           (isalnum(*current_position_1) != 0) && (isalnum(*current_position_2) != 0))
         {
             #ifdef DEBUG
                 printf("%s < %s\n", str_1->begin_string, str_2->begin_string);
@@ -141,8 +134,8 @@ int string_comparator(const void* lhs, const void* rhs)
             return((flag == DIRECTLY) ? -1 : 1);
         }
 
-        if((current_value_1 > current_value_2) &&
-           (isalnum(current_value_1) != 0) && (isalnum(current_value_2) != 0))
+        if((tolower(*current_position_1) > tolower(*current_position_2)) &&
+           (isalnum(*current_position_1) != 0) && (isalnum(*current_position_2) != 0))
         {
             #ifdef DEBUG
                 printf("%s\n", str_1->begin_string);
@@ -171,20 +164,17 @@ int string_comparator_reverse(const void* lhs, const void* rhs)
     char* current_position_1 = &(str_1->begin_string[str_1->len_string]);
     char* current_position_2 = &(str_2->begin_string[str_2->len_string]);
 
-    char current_value_1 = tolower(*current_position_1);
-    char current_value_2 = tolower(*current_position_2);
-
     #ifdef DEBUG
         printf("current_position_1: %s\n", current_position_1);
         printf("current_position_2: %s\n", current_position_2);
     #endif
 
-     while((current_position_1 != str_1->begin_string) && (current_position_2 != str_2->begin_string))
+    while((current_position_1 != str_1->begin_string) && (current_position_2 != str_2->begin_string))
     {
         should_skip_back(&current_position_1);
         should_skip_back(&current_position_2);
 
-        while(current_value_1 == current_value_2)
+        while((tolower(*current_position_1) == tolower(*current_position_2)) && (isalnum(*current_position_1) != 0) && (isalnum(*current_position_2) != 0))
         {
             --current_position_1;
             --current_position_2;
@@ -223,11 +213,8 @@ int string_comparator_reverse(const void* lhs, const void* rhs)
             }
         }
         
-        current_value_1 = tolower(*current_position_1);
-        current_value_2 = tolower(*current_position_2);
-
-        if((current_value_1 < current_value_2) &&
-           (isalpha(current_value_1) != 0) && (isalpha(current_value_2) != 0))
+        if((tolower(*current_position_1) < tolower(*current_position_2)) &&
+           (isalpha(*current_position_1) != 0) && (isalpha(*current_position_2) != 0))
         {
             #ifdef DEBUG
                 printf("str_1 < str_2: %s > %s\n", str_1->begin_string, str_2->begin_string);
@@ -238,8 +225,8 @@ int string_comparator_reverse(const void* lhs, const void* rhs)
             return((flag == DIRECTLY) ? -1 : 1);
         }
 
-        if((current_value_1 > current_value_2) &&
-           (isalpha(current_value_1) != 0) && (isalpha(current_value_2) != 0))
+        if((tolower(*current_position_1) > tolower(*current_position_2)) &&
+           (isalpha(*current_position_1) != 0) && (isalpha(*current_position_2) != 0))
         {
             #ifdef DEBUG
                 printf("str_1 > str_2: %s < %s\n", str_1->begin_string, str_2->begin_string);
@@ -293,7 +280,6 @@ struct string_t* get_strings(char* buffer, long count, long number_strings)
         ++subsidiary_possition;
 
         int test_len = strlen(strings[string_idx].begin_string);
-        printf("%d vs %d (our vs strlen)\n", test_len, strings[string_idx].len_string);
 
         #ifdef DEBUG
             printf("%ld: len_string: %d\n", string_idx, strings[string_idx].len_string);
@@ -410,22 +396,29 @@ int parse_args(struct args_t* args, int argc, char** argv)
         printf("flag_sort_direction: %d\n", *flag_sort_direction);
     #endif
 
-    if (argc != 7)
-    {
-        printf("%s\n", USAGE);
-        return ERR_INC_INPUT;
-    }
-
     if(strcmp(argv[1], "--help") == 0)
     {
         printf("%s\n", USAGE);
         exit(0);
     }
 
-    char opt = 0;
-    while((opt = getopt(argc, argv, "berdf:a:")) != -1)
+    if (argc != 6)
     {
-        switch (opt)
+        printf("%s\n", USAGE);
+        return ERR_INC_INPUT;
+    }
+
+    static struct option longopts[] =
+    {
+        {"qsort", 0, NULL, QSORT},
+        {"insertion", 0, NULL, INSERTION},
+    };
+    static const char opts[] = "bedrf:";
+
+    int ret = 0;
+    while((ret = getopt_long(argc, argv, opts, longopts, &optind)) != -1)
+    {
+        switch (ret)
         {
         case 'b':
             args->option_sort_type = BEGIN;
@@ -444,12 +437,15 @@ int parse_args(struct args_t* args, int argc, char** argv)
         case 'f':
             args->filename = optarg;
             break;
-        case 'a':
-            args->algorithm = optarg;
+        case QSORT:
+            args->option_sort_algorithm = QSORT;
+            break;
+        case INSERTION:
+            args->option_sort_algorithm = INSERTION;
             break;
         default:
-            printf("%s\n", USAGE);
-            return ERR_INC_INPUT;         
+            printf("ERROR: invalied option.\n");
+            exit(ERR_INC_INPUT);              
         }
     }
 
@@ -457,20 +453,11 @@ int parse_args(struct args_t* args, int argc, char** argv)
         printf("args->filename: %s\n", args->filename);
         printf("option_sort_type: %s\n", args->option_sort_type);
         printf("args->option_sort_direction: %s\n", args->option_sort_direction);
-        printf("args->algorithm: %s\n", args->algorithm);
+        printf("LINE %d: option_sort_algorithm: %d\n", __LINE__, args->option_sort_algorithm);
     #endif
 
-    if(strcmp(args->algorithm, "--sort=qsort"))
-    {
-        args->option_sort_algorithm = QSORT;
-    }
-    else if (strcmp(args->algorithm, "--sort=insertion"))
-    {
-        args->option_sort_algorithm = INSERTION;
-    }
-    else
-    {
-        printf("%s\n", USAGE);
-        return ERR_INC_INPUT;
-    }
+    printf("LINE %d: args->filename: %s\n", __LINE__, args->filename);
+    printf("LINE %d: option_sort_algorithm: %d\n", __LINE__, args->option_sort_algorithm);
+    printf("LINE %d: args->option_sort_type: %d\n", __LINE__, args->option_sort_type);
+    printf("LINE %d: args->option_sort_direction: %d\n", __LINE__, args->option_sort_direction);
 }

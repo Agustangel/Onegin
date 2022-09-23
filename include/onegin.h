@@ -4,7 +4,7 @@
  * Lexicographic sort. */
 
 //! const for describing input parameters
-static const char* USAGE = "Usage: ./onegin flag_file filename option_sort_type option_sort_direction flag_algoritm algoritm\n \
+static const char* USAGE = "Usage: ./onegin flag_file filename option_sort_type option_sort_direction algoritm\n \
         flag_file - option '-f' notifying about filename.\n \
         filename  - name of file with text.\n \
                                           \n \
@@ -16,7 +16,6 @@ static const char* USAGE = "Usage: ./onegin flag_file filename option_sort_type 
         type '-r' to enable reverse sort. \n \
         type '-d' to enable directly sort.\n \
                                           \n \
-        flag_algoritm - option '-a' notifying about type of algorithm.\n \
         algorithm - proposed sorting algorithm. \n \
         type '--sort=qsort' or '--sort=insertion' to enable it.\n";
 
@@ -62,8 +61,6 @@ struct args_t
     int option_sort_type; /*!< options '-b' and '-e' for sorting. */
     int option_sort_direction; /*!< options '-d' and '-r' for directly and reverse sort. */
     int option_sort_algorithm; /*!< options for type of algorithm. */
-    char* algorithm; /*!< algorithm of sorting. */
-
 };
 
 //! \struct string_t

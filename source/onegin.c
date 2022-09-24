@@ -107,14 +107,7 @@ int string_comparator(const void* lhs, const void* rhs)
                 printf("current_position_2: %s\n", current_position_2);
             #endif
 
-            if(flag == DIRECTLY)
-            {
-                return -1;
-            }
-            else
-            {
-                return 1;
-            }
+            return(flag == DIRECTLY ? -1 : 1);
         }
 
         if(*current_position_2 == '\0') 
@@ -127,14 +120,7 @@ int string_comparator(const void* lhs, const void* rhs)
                 printf("current_position_2: %s\n", current_position_2);
             #endif
 
-            if(flag == DIRECTLY)
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
+            return(flag == DIRECTLY ? 1 : -1);
         }
 
         if((tolower(*current_position_1) < tolower(*current_position_2)) && \
@@ -146,14 +132,7 @@ int string_comparator(const void* lhs, const void* rhs)
                 printf("current_position_2: %s\n", current_position_2);
             #endif
 
-            if(flag == DIRECTLY)
-            {
-                return -1;
-            }
-            else
-            {
-                return 1;
-            }
+            return(flag == DIRECTLY ? -1 : 1);
         }
 
         if ((tolower(*current_position_1) > tolower(*current_position_2)) && \
@@ -167,14 +146,7 @@ int string_comparator(const void* lhs, const void* rhs)
                 printf("current_position_2: %s\n", current_position_2);
             #endif
 
-            if(flag == DIRECTLY)
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
+            return(flag == DIRECTLY ? 1 : -1);
         }
     }
 
@@ -227,14 +199,7 @@ int string_comparator_reverse(const void* lhs, const void* rhs)
                     printf("current_position_2: %s\n", current_position_2);
                 #endif
 
-                if(flag == DIRECTLY)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 1;
-                }
+                return(flag == DIRECTLY ? -1 : 1);
             }
 
             if((current_position_1 != str_1->begin_string) && (current_position_2 == str_2->begin_string)) 
@@ -245,14 +210,7 @@ int string_comparator_reverse(const void* lhs, const void* rhs)
                     printf("current_position_2: %s\n", current_position_2);
                 #endif
 
-                if(flag == DIRECTLY)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
+                return(flag == DIRECTLY ? 1 : -1);
             }
         }
 
@@ -265,14 +223,7 @@ int string_comparator_reverse(const void* lhs, const void* rhs)
                 printf("current_position_2: %s\n", current_position_2);
             #endif
 
-            if(flag == DIRECTLY)
-            {
-                return -1;
-            }
-            else
-            {
-                return 1;
-            }
+            return(flag == DIRECTLY ? -1 : 1);
         }
 
         if((tolower(*current_position_1) > tolower(*current_position_2)) && \
@@ -284,14 +235,7 @@ int string_comparator_reverse(const void* lhs, const void* rhs)
                 printf("current_position_2: %s\n", current_position_2);
             #endif
 
-            if(flag == DIRECTLY)
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
+            return(flag == DIRECTLY ? 1 : -1);
         }
     }
 

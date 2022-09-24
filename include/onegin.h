@@ -40,16 +40,16 @@ enum error_names
 /*! An enum of possible sorts type. */
 enum option_sort_type
 {
-    BEGIN = 0,
-    END   = 1
+    BEGIN = 1,
+    END   = 2
 };
 
 //! \enum option_sort_direction
 /*! An enum of possible sorts direction. */
 enum option_sort_direction
 {
-    DIRECTLY =  1,
-    REVERSE  = -1
+    DIRECTLY = 3,
+    REVERSE  = 4
 };
 
 

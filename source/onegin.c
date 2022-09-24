@@ -329,7 +329,6 @@ struct string_t* get_strings(char* buffer, long count, long number_strings)
         strings[string_idx].len_string = (current_position - subsidiary_possition) / sizeof(char);
 
         *current_position = '\0';
-
         ++current_position;
         
         strings[string_idx].begin_string = subsidiary_possition;
@@ -483,7 +482,6 @@ int parse_args(struct args_t* args, int argc, char** argv)
             break;
         case 'e':
             args->option_sort_type = END;
-            flag = END;
             break;
         case 'd':
             args->option_sort_direction = DIRECTLY;
@@ -491,6 +489,7 @@ int parse_args(struct args_t* args, int argc, char** argv)
             break; 
         case 'r':
             args->option_sort_direction = REVERSE;
+            flag = REVERSE;
             break;
         case 'f':
             args->filename = optarg;

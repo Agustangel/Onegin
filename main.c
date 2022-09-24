@@ -22,7 +22,6 @@ int main(int argc, char* argv[])
         printf("ERROR: bad file read.\n");
         exit(ERR_BAD_FILE);
     }
-    
 
     long count = count_symbols(text);
     HANDLE_ERROR(count, ERR_BAD_PTR, "ERROR: pointer outside file.\n");

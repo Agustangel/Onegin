@@ -17,7 +17,7 @@ static const char* USAGE = "Usage: ./onegin flag_file filename option_sort_type 
         type '-d' to enable directly sort.\n \
                                           \n \
         algorithm - proposed sorting algorithm. \n \
-        type '--sort=qsort' or '--sort=insertion' to enable it.\n";
+        type '--qsort' or '--insertion' to enable it.\n";
 
 //! \enum algorithm
 /*! An enum of possible algorithms. */
@@ -28,12 +28,12 @@ enum algorithm
 };
 //! \enum error_names
 /*! An enum of possible errors. */
-enum error_names
+enum txt_error_names
 {
-    ERR_INC_INPUT = -5,
-    ERR_BAD_FILE  = -4,
-    ERR_BAD_READ  = -3,
-    ERR_BAD_PTR   = -2
+    ERR_TXT_INC_INPUT = -5,
+    ERR_TXT_BAD_FILE  = -4,
+    ERR_TXT_BAD_READ  = -3,
+    ERR_TXT_BAD_PTR   = -2
 };
 
 //! \enum option_sort_type
@@ -67,11 +67,9 @@ struct args_t
 /*! A structure describing the string. */
 struct string_t
 {
-
     char* begin_string; /*!< Pointer to the beginning of the string. */
     char* end_string; /*!< Pointer to the end of the string. */
     int len_string; /*!< Length of the string. */
-
 };
 
 //! Macros HANDLE_ERROR
@@ -108,7 +106,7 @@ long count_symbols(FILE* text);
 /*! \param count - number of symbols in the file.
 /*! \param buffer - pointer to the beginning of buffer.
  *  \returns result - error in case of incorrect filling. */
-int fill_buffer(FILE* text, char* buffer, long count);
+int fill_buffer(FILE* text, void* buffer, size_t size, long count);
 
 //! Function that counts strings in the file.
 /*! \param buffer - pointer to the beginning of buffer.

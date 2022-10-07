@@ -316,19 +316,19 @@ long count_strings(char* buffer, long count)
 }
 
 
-int fill_buffer(FILE* text, char* buffer, long count)
+int fill_buffer(FILE* text, void* buffer, size_t size, long count)
 {
     assert(text != NULL);
     assert(buffer != NULL);
 
-    long get_count = fread(buffer, sizeof(char), count, text);
+    long get_count = fread(buffer, size, count, text);
     #ifdef DEBUG
         printf("get_count = %ld\n", get_count);
     #endif
 
     if(get_count != (count - 1))
     {
-        return ERR_BAD_READ;
+        return ERR_TXT_BAD_READ;
     }
 
     return 0;
@@ -343,13 +343,13 @@ long count_symbols(FILE* text)
 
     if(fseek(text, 0, SEEK_END) != 0)
     {
-        return ERR_BAD_PTR;
+        return ERR_TXT_BAD_PTR;
     }
 
     long end_position = ftell(text);
     if(end_position == -1L)
     {
-        exit(ERR_BAD_PTR);
+        exit(ERR_TXT_BAD_PTR);
     }
 
     long count_symbols = (end_position - begin_position) / sizeof(char);
@@ -406,7 +406,7 @@ int parse_args(struct args_t* args, int argc, char** argv)
     if (argc != 6)
     {
         printf("%s\n", USAGE);
-        return ERR_INC_INPUT;
+        return ERR_TXT_INC_INPUT;
     }
 
     static struct option longopts[] =
@@ -446,7 +446,7 @@ int parse_args(struct args_t* args, int argc, char** argv)
             break;
         default:
             printf("ERROR: invalied option.\n");
-            exit(ERR_INC_INPUT);              
+            exit(ERR_TXT_INC_INPUT);              
         }
     }
 

@@ -14,21 +14,21 @@ int main(int argc, char* argv[])
     struct args_t args;
 
     int ret = parse_args(&args, argc, argv);
-    HANDLE_ERROR(ret, ERR_INC_INPUT, "ERROR: incorrect input.\n");
+    HANDLE_ERROR(ret, ERR_TXT_INC_INPUT, "ERROR: incorrect input.\n");
     
     FILE* text = open_file(args.filename);
     if (text == NULL)
     {
         printf("ERROR: bad file read.\n");
-        exit(ERR_BAD_FILE);
+        exit(ERR_TXT_BAD_FILE);
     }
 
     long count = count_symbols(text);
-    HANDLE_ERROR(count, ERR_BAD_PTR, "ERROR: pointer outside file.\n");
+    HANDLE_ERROR(count, ERR_TXT_BAD_PTR, "ERROR: pointer outside file.\n");
 
     char* buffer = (char*) calloc(count, sizeof(char));
-    ret = fill_buffer(text, buffer, count);
-    HANDLE_ERROR(ret, ERR_BAD_READ, "ERROR: file read error.\n");
+    ret = fill_buffer(text, buffer, sizeof(char), count);
+    HANDLE_ERROR(ret, ERR_TXT_BAD_READ, "ERROR: file read error.\n");
 
     fclose(text);
 
